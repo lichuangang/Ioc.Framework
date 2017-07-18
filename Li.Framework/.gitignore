@@ -1,2 +1,4 @@
 /packages/
 /TestResults/
+bin
+obj
