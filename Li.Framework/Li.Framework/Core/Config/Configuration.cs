@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,11 +32,11 @@ namespace Li.Framework.Core.Config
             List<Type> registeredTypes = new List<Type>();
             foreach (Assembly assembly in assemblies)
             {
-                foreach (Type type in assembly.GetTypes().Where(IsComponent))
+                foreach (Type type in assembly.GetTypes())
                 {
                     if (!registeredTypes.Contains(type))
                     {
-                        RegisterComponentType(type);
+                        //RegisterComponentType(type);
                     }
                 }
             }
