@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Li.Framework", "Li.Framewor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{71E0E170-3541-4D28-AC89-3EAF96C05708}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{30B3029F-7DB7-4AAB-9109-53CF27DC2966}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{B61C7FF1-4AE7-4B6C-A736-CC9991312D5C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +25,15 @@ Global
 		{71E0E170-3541-4D28-AC89-3EAF96C05708}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71E0E170-3541-4D28-AC89-3EAF96C05708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71E0E170-3541-4D28-AC89-3EAF96C05708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B61C7FF1-4AE7-4B6C-A736-CC9991312D5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B61C7FF1-4AE7-4B6C-A736-CC9991312D5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B61C7FF1-4AE7-4B6C-A736-CC9991312D5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B61C7FF1-4AE7-4B6C-A736-CC9991312D5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B61C7FF1-4AE7-4B6C-A736-CC9991312D5C} = {30B3029F-7DB7-4AAB-9109-53CF27DC2966}
 	EndGlobalSection
 EndGlobal
