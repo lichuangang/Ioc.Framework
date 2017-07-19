@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Autofac;
+using Autofac.Extras.DynamicProxy;
+using Li.Framework.Core.Ioc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -26,6 +29,46 @@ namespace Li.Framework.Core.Config
             get { return _instance; }
         }
         #endregion
+
+        public Configuration UseAutofac()
+        {
+            ContainerManager.SetContainer(new ContainerBuilder().Build());
+            return this;
+        }
+
+        public Configuration UseIocTransaction(params Assembly[] assemblies)
+        {
+            var container = ContainerManager.Container;
+
+            var builder = new ContainerBuilder();
+            builder.RegisterType<TransactionInterceptor>();
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(type => typeof(ITransaction).IsAssignableFrom(type))
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors()
+                .InterceptedBy(typeof(TransactionInterceptor));
+
+            builder.Update(container);
+            return this;
+        }
+
+        public Configuration UseCache(params Assembly[] assemblies)
+        {
+            var container = ContainerManager.Container;
+
+            var builder = new ContainerBuilder();
+            builder.RegisterType<CacheInterceptor>();
+
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(type => type.GetCustomAttributes(typeof(InterceptAttribute), false).Any())
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope()
+                .EnableInterfaceInterceptors();
+            builder.Update(container);
+            return this;
+        }
+
 
         public Configuration RegisterBusinessComponents(params Assembly[] assemblies)
         {

@@ -68,6 +68,8 @@
     <Compile Include="Utils\BookDao.cs" />
     <Compile Include="Utils\IBookDao.cs" />
     <Compile Include="Utils\InfoDao.cs" />
+    <Compile Include="Utils\ITansentDao.cs" />
+    <Compile Include="Utils\TansentDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Li.Framework\Li.Framework.csproj">
