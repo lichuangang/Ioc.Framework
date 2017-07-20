@@ -59,7 +59,7 @@ namespace Li.Framework.Core.Config
             return this;
         }
 
-        public Configuration UseCache(params Assembly[] assemblies)
+        public Configuration UseCacheInterface(params Assembly[] assemblies)
         {
             var container = ContainerManager.Container;
 
@@ -74,6 +74,22 @@ namespace Li.Framework.Core.Config
             builder.Update(container);
             return this;
         }
+
+        public Configuration UseCacheClass(params Assembly[] assemblies)
+        {
+            var container = ContainerManager.Container;
+
+            var builder = new ContainerBuilder();
+            builder.RegisterType<CacheInterceptor>();
+
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(type => type.GetCustomAttributes(typeof(InterceptAttribute), false).Any())
+                .EnableClassInterceptors();//开启类方式注入，但方法必需是虚方法
+            builder.Update(container);
+            return this;
+        }
+
+
 
         public Configuration RegisterDefaultDb(string dbStr)
         {

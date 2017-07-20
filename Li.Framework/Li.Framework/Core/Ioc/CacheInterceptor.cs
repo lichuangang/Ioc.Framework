@@ -1,4 +1,5 @@
 ﻿using Castle.DynamicProxy;
+using Li.Framework.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +19,27 @@ namespace Li.Framework.Core.Ioc
 
         public void Intercept(IInvocation invocation)
         {
-            var methodName = invocation.Method.Name;
-            var param = string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray());
-            var key = methodName + "_" + param;
-
-            if (_catheDict.ContainsKey(key))
+            var attributes = invocation.MethodInvocationTarget.GetCustomAttributes(typeof(CacheAttribute), true);
+            var attr = attributes.OfType<CacheAttribute>().FirstOrDefault();
+            if (attr != null)
             {
-                invocation.ReturnValue = _catheDict[key];
+                var methodName = invocation.Method.Name;
+                var param = string.Join(", ", invocation.Arguments.Select(a => (a ?? "").ToString()).ToArray());
+                var key = methodName + "_" + param;
+
+                if (_catheDict.ContainsKey(key))
+                {
+                    invocation.ReturnValue = _catheDict[key];
+                }
+                else
+                {
+                    invocation.Proceed();
+                    _catheDict.Add(key, invocation.ReturnValue);
+                }
             }
             else
             {
                 invocation.Proceed();
-                _catheDict.Add(key, invocation.ReturnValue);
             }
         }
     }

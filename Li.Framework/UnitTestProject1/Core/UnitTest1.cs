@@ -51,13 +51,11 @@ namespace UnitTestProject1.Core
             var info1 = instance.Info("BB");
 
             var info2 = instance.Info("BB");
-
         }
 
         [TestMethod]
         public void TestMethod3()
         {
-            Configuration.Instance.UseAutofac().UseIocTransaction(this.GetType().Assembly);
             var instance = ContainerManager.Resolve<ITansentDao>();
             instance.Run();
         }
@@ -67,6 +65,13 @@ namespace UnitTestProject1.Core
         {
             var instance = ContainerManager.Resolve<IBookDao>();
             instance.GetBookName("abc");
+        }
+
+        [TestMethod]
+        public void TestMethod41()
+        {
+            var instance = ContainerManager.Resolve<InfoDao>();
+            instance.Info("aaa");
         }
 
         [TestMethod]
@@ -83,6 +88,22 @@ namespace UnitTestProject1.Core
             var service = ContainerManager.Resolve<MessageService>();
             var ent = service.GetById("1675fc87-ea33-4d01-b953-571828c8f3c2");
             Assert.IsTrue(ent != null);
+        }
+
+        [TestMethod]
+        public void TestMethod7()
+        {
+            var service = ContainerManager.Resolve<IMessageService>();
+            service.Tansation();
+        }
+
+        [TestMethod]
+        public void TestMethod8()
+        {
+            var service = ContainerManager.Resolve<MessageHstRsp>();
+            var ent = service.GetByIdCache("1675fc87-ea33-4d01-b953-571828c8f3c2");
+            //第二次不再查数据库。直接从缓存中取
+            var ent2 = service.GetByIdCache("1675fc87-ea33-4d01-b953-571828c8f3c2");
         }
     }
 }

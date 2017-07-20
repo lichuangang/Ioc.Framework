@@ -1,4 +1,5 @@
 ﻿using Li.Framework.Core.Attributes;
+using Li.Framework.Core.Ioc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,47 @@ namespace UnitTestProject1.Services
      * ==============================================================================
      */
     [Service]
-    public class MessageService
+    public class MessageService : IMessageService, ITransaction
     {
         private readonly MessageHstRsp _messageHstRep;
+        private readonly MessageRsp _messageRep;
 
-        public MessageService(MessageHstRsp messageHstRep)
+        public MessageService(MessageHstRsp messageHstRep, MessageRsp messageRep)
         {
             _messageHstRep = messageHstRep;
+            _messageRep = messageRep;
         }
 
         public MessageHst GetById(string id)
         {
             return _messageHstRep.GetById(id);
         }
+
+        [TransactionHandler]
+        public void Tansation()
+        {
+            Message msg = new Message()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Tag = "test",
+                Timestamp = DateTime.Now.Ticks,
+                Topic = "test",
+                Type = "2"
+            };
+
+            MessageHst hst = new MessageHst()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Tag = "test",
+                Timestamp = DateTime.Now.Ticks,
+                Topic = "test",
+                Type = "2"
+            };
+
+            _messageRep.Insert(msg);
+            _messageHstRep.Insert(hst);
+            //_messageHstRep.Insert(hst);
+        }
+
     }
 }

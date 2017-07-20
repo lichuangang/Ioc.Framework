@@ -70,9 +70,12 @@
     <Compile Include="BaseTest.cs" />
     <Compile Include="Core\UnitTest1.cs" />
     <Compile Include="Core\UnitTest2.cs" />
+    <Compile Include="Entity\Message.cs" />
     <Compile Include="Entity\MessageHst.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorys\MessageRsp.cs" />
     <Compile Include="Repositorys\MessageHstRsp.cs" />
+    <Compile Include="Services\IMessageService.cs" />
     <Compile Include="Services\MessageService.cs" />
     <Compile Include="Utils\BookDao.cs" />
     <Compile Include="Utils\IBookDao.cs" />

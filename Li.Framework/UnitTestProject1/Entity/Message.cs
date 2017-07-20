@@ -12,7 +12,7 @@ namespace UnitTestProject1.Entity
      * 创建人：李传刚 2017/7/19 19:05:40
      * ==============================================================================
      */
-    public class MessageHst : IdKey<string>
+    public class Message : IdKey<string>
     {
         public string Tag { get; set; }
 

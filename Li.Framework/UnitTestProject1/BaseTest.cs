@@ -17,7 +17,8 @@ namespace UnitTestProject1
                 .RegisterDefaultDb("MessageDb")
                 .RegisterLayout(Layout.Repository | Layout.Service, assem)
                 .UseIocTransaction(assem)
-                .UseCache(assem);
+                .UseCacheInterface(assem)
+                .UseCacheClass(assem);
         }
     }
 }

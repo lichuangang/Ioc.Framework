@@ -1,5 +1,4 @@
-﻿using Autofac.Extras.DynamicProxy;
-using Li.Framework.Core.Attributes;
+﻿using Li.Framework.Core.Attributes;
 using Li.Framework.Core.Ioc;
 using Li.Framework.Repositorys;
 using System;
@@ -17,13 +16,9 @@ namespace UnitTestProject1.Repositorys
      * ==============================================================================
      */
     [Repository]
-    [Intercept(typeof(CacheInterceptor))]
-    public class MessageHstRsp : BaseRepository<MessageHst, string>
+    public class MessageRsp : BaseRepository<Message, string>
     {
-        [Cache(30)]
-        public virtual MessageHst GetByIdCache(string id)
-        {
-            return GetById(id);
-        }
+
+
     }
 }
