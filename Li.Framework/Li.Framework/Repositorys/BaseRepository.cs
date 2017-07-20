@@ -1,4 +1,5 @@
-﻿using Li.Framework.Entitys;
+﻿using Li.Framework.Core.Ioc;
+using Li.Framework.Entitys;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Li.Framework.Repository
+namespace Li.Framework.Repositorys
 {
     /* ==============================================================================
      * 描述：BaseRepository
@@ -19,6 +20,12 @@ namespace Li.Framework.Repository
         SqlSugarClient _db;
         ISugarQueryable<T> _table;
 
+        public BaseRepository()
+            : this(ContainerManager.Resolve<SqlSugarClient>())
+        {
+
+        }
+
         public BaseRepository(SqlSugarClient db)
         {
             _db = db;
@@ -26,7 +33,7 @@ namespace Li.Framework.Repository
         }
 
         #region 查询
-        public T GetById(Key id)
+        public virtual T GetById(Key id)
         {
             return _table.InSingle(id);
         }

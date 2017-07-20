@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace Li.Framework.Core.Attribute
+namespace Li.Framework.Core.Attributes
 {
     /* ==============================================================================
      * 描述：开启事务属性
      * 创建人：李传刚 2017/7/19 8:54:05
      * ==============================================================================
      */
-    public class TransactionCallHandlerAttribute : System.Attribute
+    public class TransactionHandlerAttribute : Attribute
     {
         /// <summary>
         /// 超时时间
@@ -29,7 +29,7 @@ namespace Li.Framework.Core.Attribute
         /// </summary>
         public IsolationLevel IsolationLevel { get; set; }
 
-        public TransactionCallHandlerAttribute()
+        public TransactionHandlerAttribute()
         {
             Timeout = 60;
             ScopeOption = TransactionScopeOption.Required;

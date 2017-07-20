@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Li.Framework.Core.Attribute
+namespace Li.Framework.Core.Attributes
 {
     /* ==============================================================================
      * 描述：CacheAttribute

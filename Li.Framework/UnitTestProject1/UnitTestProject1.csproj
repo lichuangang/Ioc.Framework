@@ -47,7 +47,12 @@
       <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SqlSugar, Version=4.2.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sqlSugar.4.2.0.6\lib\net40\SqlSugar.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -64,7 +69,10 @@
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
     <Compile Include="Core\UnitTest1.cs" />
+    <Compile Include="Core\UnitTest2.cs" />
+    <Compile Include="Entity\MessageHst.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorys\MessageHstRsp.cs" />
     <Compile Include="Utils\BookDao.cs" />
     <Compile Include="Utils\IBookDao.cs" />
     <Compile Include="Utils\InfoDao.cs" />
@@ -82,7 +90,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repository\" />
+    <Content Include="References\MySql.Data.dll" />
+    <Content Include="References\Newtonsoft.Json.dll" />
+    <Content Include="References\System.Data.SQLite.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

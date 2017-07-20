@@ -1,5 +1,5 @@
 ﻿using Castle.DynamicProxy;
-using Li.Framework.Core.Attribute;
+using Li.Framework.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +30,8 @@ namespace Li.Framework.Core.Ioc
                     methodInfo = invocation.Method;
                 }
 
-                TransactionCallHandlerAttribute transaction =
-                    methodInfo.GetCustomAttributes<TransactionCallHandlerAttribute>(true).FirstOrDefault();
+                TransactionHandlerAttribute transaction =
+                    methodInfo.GetCustomAttributes<TransactionHandlerAttribute>(true).FirstOrDefault();
                 if (transaction != null)
                 {
                     TransactionOptions transactionOptions = new TransactionOptions();
