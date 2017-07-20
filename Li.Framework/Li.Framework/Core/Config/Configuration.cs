@@ -3,6 +3,7 @@ using Autofac.Extras.DynamicProxy;
 using Li.Framework.Core.Attributes;
 using Li.Framework.Core.Ioc;
 using Li.Framework.Core.Log4Net;
+using Li.Framework.Repositorys;
 using log4net;
 using SqlSugar;
 using System;
@@ -35,12 +36,19 @@ namespace Li.Framework.Core.Config
         }
         #endregion
 
+        /// <summary>
+        /// 引入ioc容器
+        /// </summary>
         public Configuration UseAutofac()
         {
             ContainerManager.SetContainer(new ContainerBuilder().Build());
             return this;
         }
 
+        /// <summary>
+        /// 引入log4net日志
+        /// </summary>
+        /// <returns></returns>
         public Configuration UseLog4Net()
         {
             var builder = new ContainerBuilder();
@@ -69,6 +77,9 @@ namespace Li.Framework.Core.Config
             return this;
         }
 
+        /// <summary>
+        /// 缓存接口拦截器
+        /// </summary>
         public Configuration UseCacheInterface(params Assembly[] assemblies)
         {
             var container = ContainerManager.Container;
@@ -85,6 +96,9 @@ namespace Li.Framework.Core.Config
             return this;
         }
 
+        /// <summary>
+        /// 缓存类拦截器
+        /// </summary>
         public Configuration UseCacheClass(params Assembly[] assemblies)
         {
             var container = ContainerManager.Container;
@@ -99,6 +113,9 @@ namespace Li.Framework.Core.Config
             return this;
         }
 
+        /// <summary>
+        /// 设置默认数据库
+        /// </summary>
         public Configuration RegisterDefaultDb(string dbStr)
         {
             var connectionStr = ConfigurationManager.ConnectionStrings[dbStr].ConnectionString;
@@ -112,14 +129,25 @@ namespace Li.Framework.Core.Config
             });
 
             var builder = new ContainerBuilder();
-            builder.Register(m => db);
+            builder.Register(m => db).SingleInstance();
 
             builder.Update(ContainerManager.Container);
             return this;
         }
 
         /// <summary>
-        /// 加载相应层级
+        /// 注册匿名实现仓储
+        /// </summary>
+        public Configuration RegisterAnonymousImpl()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterGeneric(typeof(BaseRepository<,>));
+            builder.Update(ContainerManager.Container);
+            return this;
+        }
+
+        /// <summary>
+        /// 加载相应层级 Repository Service Component
         /// </summary>
         public Configuration RegisterLayout(Layout layout, params Assembly[] assemblies)
         {

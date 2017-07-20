@@ -9,6 +9,7 @@ using Li.Framework.Repositorys;
 using UnitTestProject1.Repositorys;
 using UnitTestProject1.Services;
 using Li.Framework.Core.Log4Net;
+using UnitTestProject1.Entity;
 
 namespace UnitTestProject1.Core
 {
@@ -111,6 +112,15 @@ namespace UnitTestProject1.Core
         {
             var log = ContainerManager.Resolve<ILoggerFactory>().Create(this.GetType());
             log.InfoFormat("{0}：消息", "info");
+        }
+
+        [TestMethod]
+        public void TestMethod10()
+        {
+            //获取匿名实现
+            var rsy = ContainerManager.Resolve<BaseRepository<MessageHst, string>>();
+            var ent = rsy.GetById("1675fc87-ea33-4d01-b953-571828c8f3c2");
+            Assert.IsTrue(ent != null);
         }
     }
 }

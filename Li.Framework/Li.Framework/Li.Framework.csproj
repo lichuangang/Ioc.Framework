@@ -76,6 +76,8 @@
     <Compile Include="Core\Ioc\TransactionInterceptor.cs" />
     <Compile Include="Core\Log4Net\ILoggerFactory.cs" />
     <Compile Include="Core\Log4Net\Log4NetLoggerFactory.cs" />
+    <Compile Include="Dtos\PageResult.cs" />
+    <Compile Include="Dtos\QueryPage.cs" />
     <Compile Include="Dtos\R.cs" />
     <Compile Include="Entitys\IdKey.cs" />
     <Compile Include="Exceptions\BusinessException.cs" />
