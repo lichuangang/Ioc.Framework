@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Li.Framework.Core.Config;
+using Li.Framework.Core.Attributes;
 
 namespace UnitTestProject1
 {
@@ -14,7 +15,7 @@ namespace UnitTestProject1
             Configuration.Instance
                 .UseAutofac()
                 .RegisterDefaultDb("MessageDb")
-                .RegisterRepositorys(assem)
+                .RegisterLayout(Layout.Repository | Layout.Service, assem)
                 .UseIocTransaction(assem)
                 .UseCache(assem);
         }

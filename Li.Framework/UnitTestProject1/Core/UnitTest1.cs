@@ -7,6 +7,7 @@ using Li.Framework.Core.Ioc;
 using Li.Framework.Core.Config;
 using Li.Framework.Repositorys;
 using UnitTestProject1.Repositorys;
+using UnitTestProject1.Services;
 
 namespace UnitTestProject1.Core
 {
@@ -71,9 +72,16 @@ namespace UnitTestProject1.Core
         [TestMethod]
         public void TestMethod5()
         {
-            //ContainerManager.RegisterType<MessageHstRsp>();
             var rsp = ContainerManager.Resolve<MessageHstRsp>();
             var ent = rsp.GetById("1675fc87-ea33-4d01-b953-571828c8f3c2");
+            Assert.IsTrue(ent != null);
+        }
+
+        [TestMethod]
+        public void TestMethod6()
+        {
+            var service = ContainerManager.Resolve<MessageService>();
+            var ent = service.GetById("1675fc87-ea33-4d01-b953-571828c8f3c2");
             Assert.IsTrue(ent != null);
         }
     }

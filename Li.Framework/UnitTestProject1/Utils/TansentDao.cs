@@ -13,7 +13,7 @@ namespace UnitTestProject1.Utils
      * 创建人：李传刚 2017/7/19 10:06:55
      * ==============================================================================
      */
-    public class TansentDao : ITransaction,ITansentDao
+    public class TansentDao : ITransaction, ITansentDao
     {
         [TransactionHandler]
         public string Run()

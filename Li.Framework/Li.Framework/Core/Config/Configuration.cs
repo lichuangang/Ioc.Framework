@@ -94,63 +94,53 @@ namespace Li.Framework.Core.Config
             return this;
         }
 
-        public Configuration RegisterRepositorys(params Assembly[] assemblies)
+        /// <summary>
+        /// 加载相应层级
+        /// </summary>
+        public Configuration RegisterLayout(Layout layout, params Assembly[] assemblies)
+        {
+            if ((layout & Layout.Repository) == Layout.Repository)
+            {
+                RegisterLayout<RepositoryAttribute>(assemblies);
+            }
+
+            if ((layout & Layout.Service) == Layout.Service)
+            {
+                RegisterLayout<ServiceAttribute>(assemblies);
+            }
+
+            if ((layout & Layout.Component) == Layout.Component)
+            {
+                RegisterLayout<ComponentAttribute>(assemblies);
+            }
+
+            return this;
+        }
+
+        private void RegisterLayout<T>(params Assembly[] assemblies) where T : SelfAttribute
         {
             foreach (Assembly assembly in assemblies)
             {
                 foreach (Type type in assembly.GetTypes().Where(type => type.IsClass && !type.IsAbstract &&
-                   type.GetCustomAttributes(typeof(RepositoryAttribute), false).Any()))
+                   type.GetCustomAttributes(typeof(T), false).Any()))
                 {
-                    RegisterType<RepositoryAttribute>(type);
+                    RegisterType<T>(type);
                 }
             }
-            return this;
-        }
-
-        public Configuration RegisterComponents(params Assembly[] assemblies)
-        {
-
-
-
-            return this;
-        }
-
-        public Configuration RegisterServices(params Assembly[] assemblies)
-        {
-
-
-
-            return this;
-        }
-
-
-
-        public Configuration RegisterBusinessComponents(params Assembly[] assemblies)
-        {
-            List<Type> registeredTypes = new List<Type>();
-            foreach (Assembly assembly in assemblies)
-            {
-                foreach (Type type in assembly.GetTypes())
-                {
-                    if (!registeredTypes.Contains(type))
-                    {
-                        //RegisterComponentType(type);
-                    }
-                }
-            }
-            return this;
         }
 
         private void RegisterType<T>(Type type) where T : SelfAttribute
         {
             LifeStyle life = ParseLifeStyle<T>(type);
-            ContainerManager.RegisterType(type);
+            if (!ContainerManager.Container.IsRegistered(type))
+            {
+                ContainerManager.RegisterType(type);
+            }
             //foreach (Type interfaceType in type.GetInterfaces())
             //{
 
             //}
         }
-
 
         public static LifeStyle ParseLifeStyle<T>(Type type) where T : SelfAttribute
         {

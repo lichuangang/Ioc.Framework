@@ -57,4 +57,14 @@ namespace Li.Framework.Core.Attributes
         Transient,
         Singleton
     }
+
+    /// <summary>
+    /// 分层
+    /// </summary>
+    public enum Layout
+    {
+        Repository = 1,
+        Service = 2,
+        Component = 4
+    }
 }
