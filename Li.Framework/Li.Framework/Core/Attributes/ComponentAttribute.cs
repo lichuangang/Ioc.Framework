@@ -63,8 +63,17 @@ namespace Li.Framework.Core.Attributes
     /// </summary>
     public enum Layout
     {
+        /// <summary>
+        /// 仓储层 ---- 与数据库打交道
+        /// </summary>
         Repository = 1,
+        /// <summary>
+        /// 服务层 ---- 调用各个外部接口 组装数据 事务组合
+        /// </summary>
         Service = 2,
+        /// <summary>
+        /// 公共组件 ---- 封装好的直接可用公共逻辑
+        /// </summary>
         Component = 4
     }
 }

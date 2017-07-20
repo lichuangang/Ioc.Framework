@@ -89,8 +89,6 @@ namespace Li.Framework.Core.Config
             return this;
         }
 
-
-
         public Configuration RegisterDefaultDb(string dbStr)
         {
             var connectionStr = ConfigurationManager.ConnectionStrings[dbStr].ConnectionString;
