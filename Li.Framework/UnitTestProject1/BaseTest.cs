@@ -14,9 +14,10 @@ namespace UnitTestProject1
 
             Configuration.Instance
                 .UseAutofac()
+                .UseLog4Net()
                 .RegisterDefaultDb("MessageDb")
                 .RegisterLayout(Layout.Repository | Layout.Service, assem)
-                .UseIocTransaction(assem)
+                .UseTransaction(assem)
                 .UseCacheInterface(assem)
                 .UseCacheClass(assem);
         }

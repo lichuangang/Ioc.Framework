@@ -8,6 +8,7 @@ using Li.Framework.Core.Config;
 using Li.Framework.Repositorys;
 using UnitTestProject1.Repositorys;
 using UnitTestProject1.Services;
+using Li.Framework.Core.Log4Net;
 
 namespace UnitTestProject1.Core
 {
@@ -104,6 +105,12 @@ namespace UnitTestProject1.Core
             var ent = service.GetByIdCache("1675fc87-ea33-4d01-b953-571828c8f3c2");
             //第二次不再查数据库。直接从缓存中取
             var ent2 = service.GetByIdCache("1675fc87-ea33-4d01-b953-571828c8f3c2");
+        }
+        [TestMethod]
+        public void TestMethod9()
+        {
+            var log = ContainerManager.Resolve<ILoggerFactory>().Create(this.GetType());
+            log.InfoFormat("{0}：消息", "info");
         }
     }
 }

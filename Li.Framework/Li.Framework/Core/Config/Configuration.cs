@@ -2,6 +2,8 @@
 using Autofac.Extras.DynamicProxy;
 using Li.Framework.Core.Attributes;
 using Li.Framework.Core.Ioc;
+using Li.Framework.Core.Log4Net;
+using log4net;
 using SqlSugar;
 using System;
 using System.Collections.Generic;
@@ -39,10 +41,18 @@ namespace Li.Framework.Core.Config
             return this;
         }
 
+        public Configuration UseLog4Net()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterInstance<Log4NetLoggerFactory>(new Log4NetLoggerFactory("log4net.config")).As<ILoggerFactory>().SingleInstance();
+            builder.Update(ContainerManager.Container);
+            return this;
+        }
+
         /// <summary>
         /// 开启事务  事务必需有对应的接口和实现
         /// </summary>
-        public Configuration UseIocTransaction(params Assembly[] assemblies)
+        public Configuration UseTransaction(params Assembly[] assemblies)
         {
             var container = ContainerManager.Container;
 
