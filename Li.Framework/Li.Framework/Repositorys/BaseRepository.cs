@@ -1,4 +1,5 @@
 ﻿using Li.Framework.Core.Ioc;
+using Li.Framework.Dtos;
 using Li.Framework.Entitys;
 using SqlSugar;
 using System;
@@ -33,6 +34,30 @@ namespace Li.Framework.Repositorys
         }
 
         #region 查询
+
+        public PageResult<T> GetPage(QueryPage page, Expression<Func<T, bool>> where = null)
+        {
+            int total = 0;
+            ISugarQueryable<T> data = _db.Queryable<T>();
+
+            if (where != null)
+            {
+                data = data.Where(where);
+            }
+
+            if (string.IsNullOrWhiteSpace(page.SortField))
+            {
+                data.OrderBy(page.SortField + " " + page.Order);
+            }
+
+            return new PageResult<T>()
+            {
+                Data = data.ToPageList(page.PageIndex, page.PageSize, ref total),
+                Total = total
+            };
+
+        }
+
         public virtual T GetById(Key id)
         {
             return _table.InSingle(id);
@@ -54,18 +79,29 @@ namespace Li.Framework.Repositorys
 
             return _db.Insertable(t).ExecuteCommand();
         }
-
-        public int Insert(T t)
-        {
-            return _db.Insertable(t).ExecuteCommand();
-        }
-
         #endregion
 
         #region 修改
+        /// <summary>
+        /// 根据ID,更新实体所有字段值
+        /// </summary>
         public int Update(T t)
         {
             return _db.Updateable(t).ExecuteCommand();
+        }
+        /// <summary>
+        /// 根据ID 更新某些列
+        /// </summary>
+        public int Update(T key, Expression<Func<T, object>> columns)
+        {
+            return _db.Updateable(key).UpdateColumns(columns).ExecuteCommand();
+        }
+        /// <summary>
+        /// 根据where条件,更新某些列
+        /// </summary>
+        public int Update(Expression<Func<T, T>> columns, Expression<Func<T, bool>> where)
+        {
+            return _db.Updateable<T>().UpdateColumns(columns).Where(where).ExecuteCommand();
         }
         #endregion
 

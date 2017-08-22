@@ -11,8 +11,10 @@ namespace Li.Framework.Dtos
      * 创建人：李传刚 2017/7/20 14:58:09
      * ==============================================================================
      */
-    public class PageResult
+    public class PageResult<T>
     {
+        public long Total { get; set; }
 
+        public List<T> Data { get; set; }
     }
 }
